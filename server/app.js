@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const path = require('path');
 
 // Routers
 const laptopRouter = require('./routers/laptop.router');
@@ -15,7 +16,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
+// app.use('/laptops/images', express.static(path.join(__dirname, 'uploads/laptops')));
 
 // Using routers
 app.use('/api/laptops', laptopRouter);
