@@ -1,12 +1,27 @@
+// Models
 const Laptop = require("../models/laptop.model");
+
+// Utils
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
+const imageUpload = require("../utils/image");
 
 
 // Add a new laptop
 const addLaptop = catchAsync(async (req, res) => {
     const body = req.body;
-    body.images = req.files.map(file => file.path);
+    // Handle image uploads, create array of image paths of locals
+    const images = req.files.map(file => file.path);
+
+    // Sending request to upload images on cloudinary
+    const result = await imageUpload('laptops', images);
+
+    // Creating array of uploaded image public/secure URLS
+    const imageUrls = result.map(img => img.secure_url);
+
+    // Assigning image URLs to body before saving to DB
+    body.images = imageUrls;
+
     const newLaptop = await Laptop.create(body);
 
     res.status(201).json(newLaptop);
@@ -42,4 +57,16 @@ const deleteLaptop = catchAsync(async (req, res, next) => {
     res.status(204).json();
 });
 
-module.exports = { addLaptop, getLaptops, getLaptop, deleteLaptop };
+// Update laptop by ID (optional, not in router)
+const updateLaptop = catchAsync(async (req, res, next) => {
+    const { id } = req.params;
+    const updateLaptop = await Laptop.findByIdAndUpdate(id, req.body, { new: true });
+
+    if(!updateLaptop) {
+        return next(new AppError('laptop not found to update', 404));
+    }
+
+    res.status(200).json(updateLaptop);
+});
+
+module.exports = { addLaptop, getLaptops, getLaptop, deleteLaptop, updateLaptop };
