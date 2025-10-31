@@ -2,11 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const path = require('path');
+// const path = require('path');
 
 // Routers
 const laptopRouter = require('./routers/laptop.router');
 const globalErrorHandler = require('./controllers/error.controller');
+const authRouter = require('./routers/auth.router');
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(express.json());
 
 // Using routers
 app.use('/api/laptops', laptopRouter);
+app.use('/api/auth', authRouter)
 
 // Global Error Handling
 app.use(globalErrorHandler); 
