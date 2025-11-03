@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 // const path = require('path');
 
 // Routers
@@ -15,6 +16,7 @@ const app = express();
 
 // Middlewares
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 
 // app.use('/laptops/images', express.static(path.join(__dirname, 'uploads/laptops')));
