@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
+const crypto = require('crypto');
 
 const userSchema = new mongoose.Schema({
     fullname: {
@@ -28,29 +29,38 @@ const userSchema = new mongoose.Schema({
         enum: ['user', 'moderator', 'admin'],
         default: 'user'
     },
-    isVerified: {
-        type: Boolean,
-        default: true
-    },
     isActive: {
         type: Boolean,
         default: true
+    },
+    verificationCode: String,
+    isVerified: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true });
 
-userSchema.pre('save', async function() {
+userSchema.pre('save', async function(next) {
+    if (!this.isModified("password")) return next();
     this.password = await bcrypt.hash(this.password, 10);
+    next();
 });
 
 userSchema.methods.comparePassword = async function(candidate) {
     return await bcrypt.compare(candidate, this.password);
+};
+
+userSchema.methods.createEmailVerificationToken = function() {
+    const code = crypto.randomBytes(12).toString('hex'); 
+    this.verificationCode = code;
+    return code;
 }
 
 userSchema.methods.signToken = function() {
     return jwt.sign({id: this._id}, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN
     });
-}
+};
 
 const User = mongoose.model('User', userSchema);
 

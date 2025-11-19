@@ -21,6 +21,15 @@ const imageUpload = async (folder, files) => {
     } catch(err) {
        return { message: "Error uploading image", error: err.message };
     }
-}
+};
 
-module.exports = imageUpload;
+const deleteImage = async (publicId) => {
+    try {
+        const result = await cloudinary.uploader.destroy(publicId);
+        return result;
+    } catch (err) {
+        return { message: "Error deleting image", error: err.message };
+    }
+};
+
+module.exports = {imageUpload, deleteImage};

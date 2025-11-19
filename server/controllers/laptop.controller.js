@@ -4,7 +4,7 @@ const Laptop = require("../models/laptop.model");
 // Utils
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
-const imageUpload = require("../utils/image");
+const {imageUpload, deleteImage} = require("../utils/image");
 
 
 // Add a new laptop
@@ -17,7 +17,7 @@ const addLaptop = catchAsync(async (req, res) => {
     const result = await imageUpload('laptops', images);
 
     // Creating array of uploaded image public/secure URLS
-    const imageUrls = result.map(img => img.secure_url);
+    const imageUrls = result.map(img => ({url: img.secure_url, public_id: img.public_id}));
 
     // Assigning image URLs to body before saving to DB
     body.images = imageUrls;
@@ -50,6 +50,11 @@ const deleteLaptop = catchAsync(async (req, res, next) => {
     const { id } = req.params;
     const laptop = await Laptop.findByIdAndDelete(id);
 
+    const promises = laptop.images.map(img => deleteImage(img.public_id));
+    const result = await Promise.all(promises);
+
+    console.log(result);
+
     if (!laptop) {
         return next(new AppError('Laptop not found to delete', 404));
     }
@@ -61,6 +66,8 @@ const deleteLaptop = catchAsync(async (req, res, next) => {
 const updateLaptop = catchAsync(async (req, res, next) => {
     const { id } = req.params;
     const updateLaptop = await Laptop.findByIdAndUpdate(id, req.body, { new: true });
+
+    console.log(req.file, req.files)
 
     if(!updateLaptop) {
         return next(new AppError('laptop not found to update', 404));
