@@ -3,8 +3,10 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
-// const path = require('path');
-
+// Cybersecurity
+const rateLimiter = require('express-rate-limit');
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
 // Routers
 const laptopRouter = require('./routers/laptop.router');
 const globalErrorHandler = require('./controllers/error.controller');
@@ -13,6 +15,19 @@ const authRouter = require('./routers/auth.router');
 dotenv.config();
 
 const app = express();
+
+app.use(rateLimiter({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100 // limit each IP to 100 requests per windowMs
+}));
+app.use(mongoSanitize());
+app.use(helmet());
+
+app.get('/api/status', (req, res) => {
+    res.json({ status: 'Server is running' });
+});
+
+
 
 // Middlewares
 app.use(cors({
@@ -30,6 +45,8 @@ app.use('/api/auth', authRouter)
 
 // Global Error Handling
 app.use(globalErrorHandler); 
+
+
 
 // Connect to MongoDB and start the server
 mongoose.connect(process.env.DB)
