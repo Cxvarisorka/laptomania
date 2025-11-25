@@ -1,6 +1,4 @@
 import { Link } from "react-router";
-import { Button } from "../components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { useAuth } from "../context/auth.context";
 
 const Home = () => {
@@ -62,15 +60,15 @@ const Home = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-20">
               <Link to="/laptops">
-                <Button size="lg" className="bg-white text-indigo-600 hover:bg-gray-100 shadow-lg text-lg px-8 py-6 w-full sm:w-auto">
+                <button className="bg-white text-indigo-600 hover:bg-gray-100 shadow-lg text-lg px-8 py-6 w-full sm:w-auto h-11 rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 inline-flex items-center justify-center">
                   Browse Laptops
-                </Button>
+                </button>
               </Link>
               {!user && (
                 <Link to="/signup">
-                  <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-indigo-600 text-lg px-8 py-6 w-full sm:w-auto">
+                  <button className="border-2 border-white text-white hover:bg-white hover:text-indigo-600 text-lg px-8 py-6 w-full sm:w-auto h-11 rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 inline-flex items-center justify-center">
                     Sign Up Now
-                  </Button>
+                  </button>
                 </Link>
               )}
             </div>
@@ -96,15 +94,15 @@ const Home = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
-            <Card key={index} className="hover:shadow-lg transition-shadow duration-300 border-2 hover:border-indigo-200">
-              <CardHeader>
+            <div key={index} className="rounded-lg border-2 border-gray-200 bg-white shadow-sm hover:shadow-lg hover:border-indigo-200 transition-shadow duration-300">
+              <div className="flex flex-col space-y-1.5 p-6">
                 <div className="text-4xl mb-2">{feature.icon}</div>
-                <CardTitle className="text-xl">{feature.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">{feature.description}</CardDescription>
-              </CardContent>
-            </Card>
+                <h3 className="text-xl font-semibold leading-none tracking-tight">{feature.title}</h3>
+              </div>
+              <div className="p-6 pt-0">
+                <p className="text-base text-gray-500">{feature.description}</p>
+              </div>
+            </div>
           ))}
         </div>
       </section>
@@ -124,14 +122,14 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((category, index) => (
               <Link to="/laptops" key={index}>
-                <Card className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer h-full">
-                  <CardHeader className={`${category.color} rounded-t-lg`}>
-                    <CardTitle className="text-lg">{category.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-4">
+                <div className="rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer h-full">
+                  <div className={`${category.color} rounded-t-lg flex flex-col space-y-1.5 p-6`}>
+                    <h3 className="text-lg font-semibold leading-none tracking-tight">{category.name}</h3>
+                  </div>
+                  <div className="p-6 pt-4">
                     <p className="text-gray-600">{category.description}</p>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               </Link>
             ))}
           </div>
@@ -170,9 +168,9 @@ const Home = () => {
             Join thousands of satisfied customers and discover amazing deals today!
           </p>
           <Link to="/laptops">
-            <Button size="lg" className="bg-white text-indigo-600 hover:bg-gray-100 shadow-lg text-lg px-8 py-6">
+            <button className="bg-white text-indigo-600 hover:bg-gray-100 shadow-lg text-lg px-8 py-6 h-11 rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 inline-flex items-center justify-center">
               Start Shopping Now
-            </Button>
+            </button>
           </Link>
         </div>
       </section>

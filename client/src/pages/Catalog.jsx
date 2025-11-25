@@ -3,11 +3,6 @@ import { useAuth } from "../context/auth.context";
 import { useLaptop } from "../context/laptops.context";
 import { useState } from "react";
 import { Link } from "react-router";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { Label } from "../components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
-import { Badge } from "../components/ui/badge";
 
 const Laptop = ({ laptop }) => {
     const { deleteLaptop, updateLaptop, addToCart } = useLaptop();
@@ -27,7 +22,7 @@ const Laptop = ({ laptop }) => {
     };
 
     return (
-        <Card className="hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+        <div className="rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full">
             {/* Images */}
             <div className="relative overflow-hidden rounded-t-lg">
                 <div className="grid grid-cols-2 gap-1 bg-gray-100">
@@ -41,14 +36,14 @@ const Laptop = ({ laptop }) => {
                     ))}
                 </div>
                 {laptop.stock < 5 && laptop.stock > 0 && (
-                    <Badge variant="destructive" className="absolute top-2 right-2">
+                    <span className="absolute top-2 right-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-red-600 text-white">
                         Only {laptop.stock} left!
-                    </Badge>
+                    </span>
                 )}
                 {laptop.stock === 0 && (
-                    <Badge variant="secondary" className="absolute top-2 right-2">
+                    <span className="absolute top-2 right-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-gray-200 text-gray-900">
                         Out of Stock
-                    </Badge>
+                    </span>
                 )}
             </div>
 
@@ -56,53 +51,54 @@ const Laptop = ({ laptop }) => {
                 <form onSubmit={handleUpdate} className="flex flex-col gap-3 p-4 flex-1">
                     {editableFields.map((key) => (
                         <div key={key} className="space-y-1">
-                            <Label className="text-xs capitalize">{key.replace(/([A-Z])/g, ' $1')}</Label>
+                            <label className="text-xs capitalize block text-sm font-medium text-gray-700">{key.replace(/([A-Z])/g, ' $1')}</label>
                             {key === "images" ? (
-                                <Input
+                                <input
                                     type="file"
                                     name="images"
                                     multiple
+                                    className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none"
                                 />
                             ) : (
-                                <Input
+                                <input
                                     type="text"
                                     name={key}
                                     defaultValue={laptop[key]}
+                                    className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none"
                                 />
                             )}
                         </div>
                     ))}
 
                     <div className="flex gap-2 mt-auto">
-                        <Button type="submit" variant="default" className="flex-1">
+                        <button type="submit" className="flex-1 h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 bg-indigo-600 text-white hover:bg-indigo-700 shadow-md">
                             Save
-                        </Button>
-                        <Button
+                        </button>
+                        <button
                             type="button"
                             onClick={() => setEditing(false)}
-                            variant="outline"
-                            className="flex-1"
+                            className="flex-1 h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 border border-gray-300 bg-white hover:bg-gray-100 text-gray-900"
                         >
                             Cancel
-                        </Button>
+                        </button>
                     </div>
                 </form>
             ) : (
                 <>
-                    <CardHeader>
+                    <div className="flex flex-col space-y-1.5 p-6">
                         <div className="flex items-start justify-between">
                             <div className="flex-1">
-                                <CardTitle className="text-xl mb-1">
+                                <h3 className="text-xl font-semibold leading-none tracking-tight mb-1">
                                     {laptop.brand} {laptop.model}
-                                </CardTitle>
-                                <CardDescription className="text-sm">
+                                </h3>
+                                <p className="text-sm text-gray-500">
                                     {laptop.processor}
-                                </CardDescription>
+                                </p>
                             </div>
                         </div>
-                    </CardHeader>
+                    </div>
 
-                    <CardContent className="flex-1 space-y-3">
+                    <div className="p-6 pt-0 flex-1 space-y-3">
                         <div className="grid grid-cols-2 gap-2 text-sm">
                             <div className="flex items-center gap-2">
                                 <span className="font-medium">💾 RAM:</span>
@@ -140,44 +136,42 @@ const Laptop = ({ laptop }) => {
                                 </div>
                             </div>
                         </div>
-                    </CardContent>
+                    </div>
 
-                    <CardFooter className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2 p-6 pt-0">
                         <Link to={`/laptops/${laptop._id}`} className="w-full">
-                            <Button variant="outline" className="w-full">
+                            <button className="w-full h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 border border-gray-300 bg-white hover:bg-gray-100 text-gray-900">
                                 View Details
-                            </Button>
+                            </button>
                         </Link>
                         {user?.role === "admin" ? (
                             <div className="flex gap-2 w-full">
-                                <Button
+                                <button
                                     onClick={() => deleteLaptop(laptop._id)}
-                                    variant="destructive"
-                                    className="flex-1"
+                                    className="flex-1 h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-red-600 text-white hover:bg-red-700 shadow-md"
                                 >
                                     Delete
-                                </Button>
-                                <Button
+                                </button>
+                                <button
                                     onClick={() => setEditing(true)}
-                                    variant="default"
-                                    className="flex-1"
+                                    className="flex-1 h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 bg-indigo-600 text-white hover:bg-indigo-700 shadow-md"
                                 >
                                     Update
-                                </Button>
+                                </button>
                             </div>
                         ) : (
-                            <Button 
-                                onClick={() => addToCart(laptop)} 
-                                className="w-full"
+                            <button
+                                onClick={() => addToCart(laptop)}
+                                className="w-full h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-indigo-600 text-white hover:bg-indigo-700 shadow-md"
                                 disabled={laptop.stock === 0}
                             >
                                 {laptop.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
-                            </Button>
+                            </button>
                         )}
-                    </CardFooter>
+                    </div>
                 </>
             )}
-        </Card>
+        </div>
     );
 };
 
@@ -219,9 +213,9 @@ const Catalog = () => {
                             </p>
                         </div>
                         {user && (
-                            <Badge variant="secondary" className="mt-4 md:mt-0 text-base px-4 py-2">
+                            <span className="mt-4 md:mt-0 text-base px-4 py-2 inline-flex items-center rounded-full font-semibold bg-gray-200 text-gray-900">
                                 Signed in as {user.role}
-                            </Badge>
+                            </span>
                         )}
                     </div>
                 </div>

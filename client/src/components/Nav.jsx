@@ -1,10 +1,7 @@
 import { Link } from 'react-router';
-import { useAuth } from '../../context/auth.context';
+import { useAuth } from '../context/auth.context';
 import { useState } from 'react';
-import { useLaptop } from '../../context/laptops.context';
-import { Button } from '../ui/button';
-import { Badge } from '../ui/badge';
-import { Card } from '../ui/card';
+import { useLaptop } from '../context/laptops.context';
 
 const Nav = () => {
     const { user, logout } = useAuth();
@@ -47,18 +44,18 @@ const Nav = () => {
                                 <button onClick={() => setIsOpen(true)} className="relative text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 px-4 py-2 rounded-md text-sm font-medium cursor-pointer transition-colors">
                                     🛒 Cart
                                     {totalItems > 0 && (
-                                        <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs">
+                                        <span className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-indigo-600 text-white rounded-full font-semibold">
                                             {totalItems}
-                                        </Badge>
+                                        </span>
                                     )}
                                 </button>
-                                <Link to="/panel"><Button variant="ghost" size="sm">Panel</Button></Link>
-                                <Button onClick={logout} variant="ghost" size="sm" className="text-red-600 hover:text-red-700 hover:bg-red-50">Logout</Button>
+                                <Link to="/panel"><button className="h-9 px-3 text-sm inline-flex items-center justify-center rounded-md font-medium transition-colors hover:bg-gray-100 text-gray-900">Panel</button></Link>
+                                <button onClick={logout} className="h-9 px-3 text-sm inline-flex items-center justify-center rounded-md font-medium transition-colors text-red-600 hover:text-red-700 hover:bg-red-50">Logout</button>
                             </>
                         ) : (
                             <>
-                                <Link to="/login"><Button variant="ghost" size="sm">Login</Button></Link>
-                                <Link to="/signup"><Button size="sm">Sign Up</Button></Link>
+                                <Link to="/login"><button className="h-9 px-3 text-sm inline-flex items-center justify-center rounded-md font-medium transition-colors hover:bg-gray-100 text-gray-900">Login</button></Link>
+                                <Link to="/signup"><button className="h-9 px-3 text-sm inline-flex items-center justify-center rounded-md font-medium transition-colors bg-indigo-600 text-white hover:bg-indigo-700 shadow-md">Sign Up</button></Link>
                             </>
                         )}
                     </div>
@@ -116,13 +113,13 @@ const Nav = () => {
                             </div>
                         ) : (
                             cart.map((item) => (
-                                <Card key={item._id} className="p-4">
+                                <div key={item._id} className="p-4 rounded-lg border border-gray-200 bg-white shadow-sm">
                                     <div className="flex gap-3">
                                         <img src={item.images?.[0]?.url} alt={item.model} className="w-20 h-20 object-cover rounded-lg" />
                                         <div className="flex-1 min-w-0">
                                             <h3 className="font-semibold text-sm truncate">{item.brand} {item.model}</h3>
                                             <p className="text-indigo-600 font-bold text-lg">${item.price}</p>
-                                            
+
                                             <div className="flex items-center gap-2 mt-2">
                                                 <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
                                                     <button onClick={() => reduceOne(item)} className="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium transition">−</button>
@@ -131,11 +128,11 @@ const Nav = () => {
                                                 </div>
                                                 <button onClick={() => removeProduct(item)} className="text-red-600 hover:text-red-700 text-sm font-medium">Remove</button>
                                             </div>
-                                            
+
                                             <p className="text-gray-600 text-sm mt-1">Subtotal: ${(item.price * item.quantity).toFixed(2)}</p>
                                         </div>
                                     </div>
-                                </Card>
+                                </div>
                             ))
                         )}
                     </div>
@@ -146,8 +143,8 @@ const Nav = () => {
                                 <span>Total:</span>
                                 <span className="text-indigo-600">${totalPrice.toFixed(2)}</span>
                             </div>
-                            <Button className="w-full" size="lg">Proceed to Checkout</Button>
-                            <Button variant="outline" className="w-full" onClick={clearCart}>Clear Cart</Button>
+                            <button className="w-full h-11 px-8 text-lg inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 bg-indigo-600 text-white hover:bg-indigo-700 shadow-md">Proceed to Checkout</button>
+                            <button onClick={clearCart} className="w-full h-11 px-8 text-lg inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 border border-gray-300 bg-white hover:bg-gray-100 text-gray-900">Clear Cart</button>
                         </div>
                     )}
                 </div>

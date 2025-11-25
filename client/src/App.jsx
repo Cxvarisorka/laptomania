@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router"
-import Nav from "./components/UI/Nav"
-import Footer from "./components/UI/Footer"
+import Nav from "./components/Nav"
+import Footer from "./components/Footer"
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
 import Panel from "./pages/Panel"

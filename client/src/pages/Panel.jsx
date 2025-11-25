@@ -1,12 +1,6 @@
 import { useAuth } from "../context/auth.context";
 import { useLaptop } from "../context/laptops.context";
 import { useState } from "react";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { Label } from "../components/ui/label";
-import { Textarea } from "../components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
-import { Badge } from "../components/ui/badge";
 
 const AddLaptop = () => {
     const { addLaptop } = useLaptop();
@@ -24,100 +18,101 @@ const AddLaptop = () => {
     };
 
     return (
-        <Card className="shadow-lg">
-            <CardHeader>
-                <CardTitle className="text-2xl">Add New Laptop</CardTitle>
-                <CardDescription>Fill in the details to add a new laptop to the catalog</CardDescription>
-            </CardHeader>
-            <CardContent>
+        <div className="rounded-lg border border-gray-200 bg-white shadow-lg">
+            <div className="flex flex-col space-y-1.5 p-6">
+                <h3 className="text-2xl font-semibold leading-none tracking-tight">Add New Laptop</h3>
+                <p className="text-sm text-gray-500">Fill in the details to add a new laptop to the catalog</p>
+            </div>
+            <div className="p-6 pt-0">
                 <form onSubmit={handleSubmit} encType="multipart/form-data" className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
-                            <Label htmlFor="brand">Brand *</Label>
-                            <Input id="brand" name="brand" placeholder="e.g., Dell, HP, Lenovo" required />
+                            <label htmlFor="brand" className="block text-sm font-medium text-gray-700">Brand *</label>
+                            <input id="brand" name="brand" placeholder="e.g., Dell, HP, Lenovo" required className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none" />
                         </div>
-                        
+
                         <div className="space-y-2">
-                            <Label htmlFor="model">Model *</Label>
-                            <Input id="model" name="model" placeholder="e.g., XPS 15, ThinkPad X1" required />
+                            <label htmlFor="model" className="block text-sm font-medium text-gray-700">Model *</label>
+                            <input id="model" name="model" placeholder="e.g., XPS 15, ThinkPad X1" required className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none" />
                         </div>
-                        
+
                         <div className="space-y-2">
-                            <Label htmlFor="processor">Processor *</Label>
-                            <Input id="processor" name="processor" placeholder="e.g., Intel Core i7-12700H" required />
+                            <label htmlFor="processor" className="block text-sm font-medium text-gray-700">Processor *</label>
+                            <input id="processor" name="processor" placeholder="e.g., Intel Core i7-12700H" required className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none" />
                         </div>
-                        
+
                         <div className="space-y-2">
-                            <Label htmlFor="ram">RAM *</Label>
-                            <Input id="ram" name="ram" placeholder="e.g., 16GB DDR4" required />
+                            <label htmlFor="ram" className="block text-sm font-medium text-gray-700">RAM *</label>
+                            <input id="ram" name="ram" placeholder="e.g., 16GB DDR4" required className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none" />
                         </div>
-                        
+
                         <div className="space-y-2">
-                            <Label htmlFor="storage">Storage *</Label>
-                            <Input id="storage" name="storage" placeholder="e.g., 512GB SSD" required />
+                            <label htmlFor="storage" className="block text-sm font-medium text-gray-700">Storage *</label>
+                            <input id="storage" name="storage" placeholder="e.g., 512GB SSD" required className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none" />
                         </div>
-                        
+
                         <div className="space-y-2">
-                            <Label htmlFor="graphics">Graphics *</Label>
-                            <Input id="graphics" name="graphics" placeholder="e.g., NVIDIA RTX 3060" required />
+                            <label htmlFor="graphics" className="block text-sm font-medium text-gray-700">Graphics *</label>
+                            <input id="graphics" name="graphics" placeholder="e.g., NVIDIA RTX 3060" required className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none" />
                         </div>
-                        
+
                         <div className="space-y-2">
-                            <Label htmlFor="display">Display *</Label>
-                            <Input id="display" name='display" placeholder="e.g., 15.6\" FHD IPS' required />
+                            <label htmlFor="display" className="block text-sm font-medium text-gray-700">Display *</label>
+                            <input id="display" name='display" placeholder="e.g., 15.6\" FHD IPS' required className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none" />
                         </div>
-                        
+
                         <div className="space-y-2">
-                            <Label htmlFor="os">Operating System *</Label>
-                            <Input id="os" name="os" placeholder="e.g., Windows 11 Pro" required />
+                            <label htmlFor="os" className="block text-sm font-medium text-gray-700">Operating System *</label>
+                            <input id="os" name="os" placeholder="e.g., Windows 11 Pro" required className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none" />
                         </div>
-                        
+
                         <div className="space-y-2">
-                            <Label htmlFor="price">Price ($) *</Label>
-                            <Input id="price" name="price" type="number" step="0.01" placeholder="999.99" required />
+                            <label htmlFor="price" className="block text-sm font-medium text-gray-700">Price ($) *</label>
+                            <input id="price" name="price" type="number" step="0.01" placeholder="999.99" required className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none" />
                         </div>
-                        
+
                         <div className="space-y-2">
-                            <Label htmlFor="stock">Stock Quantity *</Label>
-                            <Input id="stock" name="stock" type="number" placeholder="10" required />
+                            <label htmlFor="stock" className="block text-sm font-medium text-gray-700">Stock Quantity *</label>
+                            <input id="stock" name="stock" type="number" placeholder="10" required className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none" />
                         </div>
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="description">Description *</Label>
-                        <Textarea
+                        <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description *</label>
+                        <textarea
                             id="description"
                             name="description"
                             placeholder="Detailed description of the laptop..."
                             rows="4"
                             required
+                            className="flex min-h-[80px] w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none"
                         />
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="images">Product Images *</Label>
-                        <Input
+                        <label htmlFor="images" className="block text-sm font-medium text-gray-700">Product Images *</label>
+                        <input
                             id="images"
                             type="file"
                             name="images"
                             multiple
                             accept="image/*"
                             required
+                            className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none"
                         />
                         <p className="text-xs text-gray-500">Upload multiple images (recommended: 2-4 images)</p>
                     </div>
 
-                    <Button
+                    <button
                         type="submit"
-                        className="w-full"
-                        size="lg"
+                        className="w-full h-11 px-8 text-lg inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-indigo-600 text-white hover:bg-indigo-700 shadow-md"
                         disabled={isSubmitting}
                     >
                         {isSubmitting ? 'Adding Laptop...' : 'Add Laptop to Catalog'}
-                    </Button>
+                    </button>
                 </form>
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     );
 };
 
@@ -137,8 +132,8 @@ const UserStats = ({ user, laptops }) => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             {stats.map((stat, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow">
-                    <CardContent className="pt-6">
+                <div key={index} className="rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-lg transition-shadow">
+                    <div className="p-6">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
@@ -148,8 +143,8 @@ const UserStats = ({ user, laptops }) => {
                                 {stat.icon}
                             </div>
                         </div>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
             ))}
         </div>
     );
@@ -207,12 +202,12 @@ const Panel = () => {
                 {/* Content */}
                 {activeTab === "profile" && (
                     <div className="max-w-2xl">
-                        <Card className="shadow-lg">
-                            <CardHeader>
-                                <CardTitle className="text-2xl">Profile Information</CardTitle>
-                                <CardDescription>Your account details and role</CardDescription>
-                            </CardHeader>
-                            <CardContent className="space-y-6">
+                        <div className="rounded-lg border border-gray-200 bg-white shadow-lg">
+                            <div className="flex flex-col space-y-1.5 p-6">
+                                <h3 className="text-2xl font-semibold leading-none tracking-tight">Profile Information</h3>
+                                <p className="text-sm text-gray-500">Your account details and role</p>
+                            </div>
+                            <div className="p-6 pt-0 space-y-6">
                                 <div className="space-y-4">
                                     <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                                         <div>
@@ -235,9 +230,13 @@ const Panel = () => {
                                             <p className="text-sm text-gray-600 mb-1">Account Role</p>
                                             <div className="flex items-center gap-2">
                                                 <p className="text-lg font-medium capitalize">{user.role}</p>
-                                                <Badge variant={isAdmin ? "default" : isModerator ? "secondary" : "outline"}>
+                                                <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                                                    isAdmin ? "bg-indigo-600 text-white" :
+                                                    isModerator ? "bg-gray-200 text-gray-900" :
+                                                    "border border-gray-300 text-gray-900"
+                                                }`}>
                                                     {user.role}
-                                                </Badge>
+                                                </span>
                                             </div>
                                         </div>
                                         <div className="text-3xl">
@@ -267,8 +266,8 @@ const Panel = () => {
                                         </ul>
                                     </div>
                                 )}
-                            </CardContent>
-                        </Card>
+                            </div>
+                        </div>
                     </div>
                 )}
 
