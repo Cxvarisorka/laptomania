@@ -2,9 +2,6 @@ import { useParams, useNavigate, Link } from "react-router";
 import { useState, useEffect } from "react";
 import { useLaptop } from "../context/laptops.context";
 import { useAuth } from "../context/auth.context";
-import { Button } from "../components/ui/button";
-import { Badge } from "../components/ui/badge";
-import { Card, CardContent } from "../components/ui/card";
 
 const LaptopDetail = () => {
     const { id } = useParams();
@@ -78,14 +75,14 @@ const LaptopDetail = () => {
                                 className="w-full h-full object-contain p-8"
                             />
                             {laptop.stock < 5 && laptop.stock > 0 && (
-                                <Badge variant="destructive" className="absolute top-4 right-4 text-sm px-3 py-1">
+                                <span className="absolute top-4 right-4 text-sm px-3 py-1 bg-red-600 text-white rounded-full inline-flex items-center font-semibold">
                                     Only {laptop.stock} left!
-                                </Badge>
+                                </span>
                             )}
                             {laptop.stock === 0 && (
-                                <Badge variant="secondary" className="absolute top-4 right-4 text-sm px-3 py-1">
+                                <span className="absolute top-4 right-4 text-sm px-3 py-1 bg-gray-200 text-gray-900 rounded-full inline-flex items-center font-semibold">
                                     Out of Stock
-                                </Badge>
+                                </span>
                             )}
                         </div>
 
@@ -124,24 +121,28 @@ const LaptopDetail = () => {
                                 <span className="text-4xl font-bold text-indigo-600">
                                     ${laptop.price}
                                 </span>
-                                <Badge variant={laptop.stock > 5 ? "success" : laptop.stock > 0 ? "destructive" : "secondary"}>
+                                <span className={`text-sm px-3 py-1 rounded-full inline-flex items-center font-semibold ${
+                                    laptop.stock > 5 ? "bg-green-600 text-white" :
+                                    laptop.stock > 0 ? "bg-red-600 text-white" :
+                                    "bg-gray-200 text-gray-900"
+                                }`}>
                                     {laptop.stock > 5 ? "In Stock" : laptop.stock > 0 ? `Only ${laptop.stock} left` : "Out of Stock"}
-                                </Badge>
+                                </span>
                             </div>
                         </div>
 
                         {/* Description */}
-                        <Card>
-                            <CardContent className="pt-6">
+                        <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
+                            <div className="p-6">
                                 <h3 className="font-semibold text-lg mb-2">Description</h3>
                                 <p className="text-gray-700 leading-relaxed">{laptop.description}</p>
-                            </CardContent>
-                        </Card>
+                            </div>
+                        </div>
 
                         {/* Quantity and Add to Cart */}
                         {user && user.role !== "admin" && (
-                            <Card>
-                                <CardContent className="pt-6">
+                            <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
+                                <div className="p-6">
                                     <div className="space-y-4">
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -177,35 +178,38 @@ const LaptopDetail = () => {
                                             </div>
                                         </div>
 
-                                        <Button
+                                        <button
                                             onClick={handleAddToCart}
                                             disabled={laptop.stock === 0}
-                                            size="lg"
-                                            className="w-full text-lg"
+                                            className="w-full h-11 px-8 text-lg inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none bg-indigo-600 text-white hover:bg-indigo-700 shadow-md"
                                         >
                                             {laptop.stock === 0 ? 'Out of Stock' : `Add ${quantity} to Cart - $${(laptop.price * quantity).toFixed(2)}`}
-                                        </Button>
+                                        </button>
                                     </div>
-                                </CardContent>
-                            </Card>
+                                </div>
+                            </div>
                         )}
 
                         {!user && (
-                            <Card className="bg-indigo-50 border-indigo-200">
-                                <CardContent className="pt-6">
+                            <div className="rounded-lg border border-indigo-200 bg-indigo-50 shadow-sm">
+                                <div className="p-6">
                                     <p className="text-center text-gray-700 mb-4">
                                         Please sign in to purchase this laptop
                                     </p>
                                     <div className="flex gap-3">
                                         <Link to="/login" className="flex-1">
-                                            <Button variant="outline" className="w-full">Login</Button>
+                                            <button className="w-full h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 border border-gray-300 bg-white hover:bg-gray-100 text-gray-900">
+                                                Login
+                                            </button>
                                         </Link>
                                         <Link to="/signup" className="flex-1">
-                                            <Button className="w-full">Sign Up</Button>
+                                            <button className="w-full h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 bg-indigo-600 text-white hover:bg-indigo-700 shadow-md">
+                                                Sign Up
+                                            </button>
                                         </Link>
                                     </div>
-                                </CardContent>
-                            </Card>
+                                </div>
+                            </div>
                         )}
                     </div>
                 </div>
@@ -213,8 +217,8 @@ const LaptopDetail = () => {
                 {/* Specifications */}
                 <div className="mt-12">
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">Technical Specifications</h2>
-                    <Card>
-                        <CardContent className="pt-6">
+                    <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
+                        <div className="p-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {specifications.map((spec, index) => (
                                     <div
@@ -229,50 +233,50 @@ const LaptopDetail = () => {
                                     </div>
                                 ))}
                             </div>
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Features */}
                 <div className="mt-12">
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">Key Features</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <Card className="hover:shadow-lg transition-shadow">
-                            <CardContent className="pt-6 text-center">
+                        <div className="rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-lg transition-shadow">
+                            <div className="p-6 text-center">
                                 <div className="text-4xl mb-3">🚀</div>
                                 <h3 className="font-semibold mb-2">High Performance</h3>
                                 <p className="text-sm text-gray-600">
                                     Powered by {laptop.processor} for seamless multitasking
                                 </p>
-                            </CardContent>
-                        </Card>
-                        <Card className="hover:shadow-lg transition-shadow">
-                            <CardContent className="pt-6 text-center">
+                            </div>
+                        </div>
+                        <div className="rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-lg transition-shadow">
+                            <div className="p-6 text-center">
                                 <div className="text-4xl mb-3">💾</div>
                                 <h3 className="font-semibold mb-2">Ample Storage</h3>
                                 <p className="text-sm text-gray-600">
                                     {laptop.storage} storage with {laptop.ram} RAM
                                 </p>
-                            </CardContent>
-                        </Card>
-                        <Card className="hover:shadow-lg transition-shadow">
-                            <CardContent className="pt-6 text-center">
+                            </div>
+                        </div>
+                        <div className="rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-lg transition-shadow">
+                            <div className="p-6 text-center">
                                 <div className="text-4xl mb-3">🛡️</div>
                                 <h3 className="font-semibold mb-2">Warranty Included</h3>
                                 <p className="text-sm text-gray-600">
                                     Manufacturer warranty and customer support
                                 </p>
-                            </CardContent>
-                        </Card>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 {/* Back to Catalog */}
                 <div className="mt-12 text-center">
                     <Link to="/laptops">
-                        <Button variant="outline" size="lg">
+                        <button className="h-11 px-8 text-lg inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 border border-gray-300 bg-white hover:bg-gray-100 text-gray-900">
                             ← Back to All Laptops
-                        </Button>
+                        </button>
                     </Link>
                 </div>
             </div>
