@@ -9,7 +9,7 @@ const createSendToken = (user, statusCode, res) => {
     const cookieOptions = {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'prod',
-        sameSite: 'strict',
+        sameSite: 'lax',
         maxAge: process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     };
 
