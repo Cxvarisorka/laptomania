@@ -9,7 +9,7 @@ const createSendToken = (user, statusCode, res) => {
     const cookieOptions = {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'prod',
-        sameSite: 'None',
+        sameSite: 'Lax',
         maxAge: process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
     };
 
@@ -377,4 +377,4 @@ const logout = catchAsync(async (req, res) => {
     res.status(200).send();
 });
 
-module.exports = { signup, verify, login, logout };
+module.exports = { signup, verify, login, logout, createSendToken };

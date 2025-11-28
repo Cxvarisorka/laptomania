@@ -3,6 +3,7 @@ const validator = require('validator');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const crypto = require('crypto');
+const { type } = require('os');
 
 const userSchema = new mongoose.Schema({
     fullname: {
@@ -19,7 +20,9 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, 'Password is required'],
+        required: [function() {
+            return !this.oauthid
+        }, "Password is required"],
         minlength: 6,
         maxLength: 12,
         select: false
@@ -37,6 +40,17 @@ const userSchema = new mongoose.Schema({
     isVerified: {
         type: Boolean,
         default: false
+    },
+    oauthid: {
+        type: String,
+    },
+    oauthProvider: {
+        type: String,
+        enum: ['google', 'facebook', 'github', null],
+        default: null
+    },
+    avatar: {
+        type: String
     }
 }, { timestamps: true });
 

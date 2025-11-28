@@ -10,6 +10,7 @@ const helmet = require('helmet');
 const laptopRouter = require('./routers/laptop.router');
 const globalErrorHandler = require('./controllers/error.controller');
 const authRouter = require('./routers/auth.router');
+const oauthRouter = require('./routers/oauth.router');
 
 dotenv.config();
 
@@ -39,7 +40,8 @@ app.use(express.json());
 
 // Using routers
 app.use('/api/laptops', laptopRouter);
-app.use('/api/auth', authRouter)
+app.use('/api/auth', authRouter);
+app.use('/api/oauth', oauthRouter)
 
 // Global Error Handling
 app.use(globalErrorHandler); 
