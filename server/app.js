@@ -41,7 +41,7 @@ app.use(express.json());
 // Using routers
 app.use('/api/laptops', laptopRouter);
 app.use('/api/auth', authRouter);
-app.use('/api/oauth', oauthRouter)
+app.use('/api/oauth', oauthRouter);
 
 // Global Error Handling
 app.use(globalErrorHandler); 

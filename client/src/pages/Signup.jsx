@@ -3,7 +3,7 @@ import { useForm } from "../hooks/useForm";
 import { Link } from "react-router";
 
 const Signup = () => {
-    const { signup } = useAuth();
+    const { signup, googleAuth, githubAuth } = useAuth();
     const [formData, handleChange] = useForm({
         fullname: '',
         email: '',
@@ -93,6 +93,7 @@ const Signup = () => {
 
                         <div className="space-y-3">
                             <button
+                                onClick={githubAuth}
                                 type="button"
                                 className="w-full h-11 px-4 inline-flex items-center justify-center gap-3 rounded-md font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 bg-[#24292F] text-white hover:bg-[#1a1e22] focus-visible:ring-gray-500 shadow-md"
                             >
@@ -103,6 +104,7 @@ const Signup = () => {
                             </button>
 
                             <button
+                                onClick={googleAuth}
                                 type="button"
                                 className="w-full h-11 px-4 inline-flex items-center justify-center gap-3 rounded-md font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 bg-white text-gray-900 hover:bg-gray-50 border-2 border-gray-300 focus-visible:ring-indigo-500 shadow-md"
                             >

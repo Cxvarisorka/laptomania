@@ -148,9 +148,13 @@ export const AuthProvider = ({ children }) => {
         window.location.href = `${API_URL}/oauth/google`;
     }
 
+    const githubAuth = () => {
+        window.location.href = `${API_URL}/oauth/github`;
+    }
+
 
     return (
-        <AuthContext.Provider value={{user, signup, login, logout, googleAuth}}>
+        <AuthContext.Provider value={{user, signup, login, logout, googleAuth, githubAuth}}>
             { children }
         </AuthContext.Provider>
     )
